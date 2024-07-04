@@ -113,4 +113,19 @@ public class UserLoginController {
 		return ResponseEntity.ok(list);
 	}
 	
+	/**
+	 *  Metodo para poder comprobar si existe un usuario con el username introducido
+	 * @param username
+	 * @return Una lista con el usuario si hay alguno o la lista vacia
+	 */
+	@Operation(
+		      summary = "Check if the username exists\n",
+		      description = "Allows you to check if exist one user with this username")
+	@Parameter(name = "username", description = "Username of the user we want to see if it exists", required=true)
+	@GetMapping("/existEmail")
+	public ResponseEntity<?> getEmail(@RequestParam("email") String email){
+		List<UserDto> list = userLoginService.existEmail(email);
+		return ResponseEntity.ok(list);
+	}
+	
 }

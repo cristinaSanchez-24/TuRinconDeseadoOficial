@@ -12,8 +12,10 @@ import com.jacaranda.trd.dto.MessageEditDto;
 import com.jacaranda.trd.dto.MessageSendDto;
 import com.jacaranda.trd.exception.BadRequest;
 import com.jacaranda.trd.exception.NotFound;
+import com.jacaranda.trd.model.Book;
 import com.jacaranda.trd.model.Message;
 import com.jacaranda.trd.model.UserLogin;
+import com.jacaranda.trd.repository.BookRepository;
 import com.jacaranda.trd.repository.MessageRepository;
 import com.jacaranda.trd.repository.UserLoginRepository;
 import com.jacaranda.trd.utility.ConvertsDto;
@@ -26,14 +28,21 @@ public class MessageServices {
 	private MessageRepository messageRepository;
 	@Autowired
 	private UserLoginRepository userRepository;
+	@Autowired
+	private BookRepository bookRepository;
 	
 	
 	/**
 	 * Metodo para traer todos los mensajes de la base de datos
 	 * @return una lista de json con mensajes dto
 	 */
-	public List<MessageDto> getMessages(){
-		return ConvertsDto.getListMessagesDto(messageRepository.findAll());
+	public List<MessageDto> getMessages(Integer id){
+		Book book = bookRepository.findById(id).orElse(null);
+		if(book!=null) {
+			return ConvertsDto.getListMessagesDto(messageRepository.findByIdBook(book));			
+		}else {
+			throw new NotFound("Book Not founs");
+		}
 	}
 	
 	/**
@@ -44,10 +53,15 @@ public class MessageServices {
 	public MessageDto addMessage(MessageSendDto message) {
 		UserLogin user = userRepository.findById(message.getUser()).orElse(null);
 		if(user!=null) {
-			Message newMessage = new Message(0, message.getContent(), Date.valueOf(LocalDate.now()), user, "active", message.getAnonimous(), message.getSpoiler());
-			newMessage.setStatus("active");
-			Message saveMessage = messageRepository.save(newMessage);
-			return ConvertsDto.messageToMessageDto(saveMessage);
+			Book book = bookRepository.findById(message.getIdBook()).orElse(null);
+			if(book!=null) {
+				Message newMessage = new Message(0, message.getContent(), Date.valueOf(LocalDate.now()), user, "active", message.getAnonimous(), message.getSpoiler(), book);
+				newMessage.setStatus("active");
+				Message saveMessage = messageRepository.save(newMessage);
+				return ConvertsDto.messageToMessageDto(saveMessage);				
+			}else {
+				throw new NotFound("Book not found");
+			}
 		}else {
 			throw new NotFound("User not found");
 		}
@@ -85,7 +99,7 @@ public class MessageServices {
 					UserLogin user = userRepository.findById(message.getUser()).orElse(null);
 					if(user!=null) {
 						if(messageFound.getUsername().getUsername().equals(user.getUsername())) {
-							Message messageEdit = new Message(messageFound.getId(), message.getContent(), messageFound.getDate(), user, messageFound.getStatus(), message.getAnonimous(), message.getSpoiler());
+							Message messageEdit = new Message(messageFound.getId(), message.getContent(), messageFound.getDate(), user, messageFound.getStatus(), message.getAnonimous(), message.getSpoiler(), messageFound.getIdBook());
 							messageEdit.setStatus("edit");
 							Message messageSave = messageRepository.save(messageEdit);
 							return ConvertsDto.messageToMessageDto(messageSave);

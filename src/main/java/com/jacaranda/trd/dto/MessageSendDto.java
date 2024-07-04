@@ -13,16 +13,28 @@ public class MessageSendDto {
 	private String content;
 	private Integer anonimous;
 	private Integer spoiler;
+	private Integer idBook;
+	
 	public MessageSendDto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public MessageSendDto(String user, String content, Integer anonimous, Integer spoiler) {
+	public MessageSendDto(String user, String content, Integer anonimous, Integer spoiler, Integer idBook) {
 		super();
 		this.user = user;
 		this.content = content;
 		this.anonimous = anonimous;
 		this.spoiler = spoiler;
+		this.idBook = idBook;
+	}
+	
+	
+	
+	public Integer getIdBook() {
+		return idBook;
+	}
+	public void setIdBook(Integer idBook) {
+		this.idBook = idBook;
 	}
 	public String getUser() {
 		return user;

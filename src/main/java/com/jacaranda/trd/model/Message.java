@@ -6,7 +6,6 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -31,12 +30,17 @@ public class Message {
 	private String status;
 	private Integer anonimous;
 	private Integer spoiler;
+	@ManyToOne
+	@JoinColumn(name = "idBook")
+	private Book idBook;
+	
+	
 	public Message() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public Message(Integer id, String content, Date date, UserLogin username, String status, Integer anonimous,
-			Integer spoiler) {
+			Integer spoiler, Book idBook) {
 		super();
 		this.id = id;
 		this.content = content;
@@ -45,6 +49,7 @@ public class Message {
 		this.status = status;
 		this.anonimous = anonimous;
 		this.spoiler = spoiler;
+		this.idBook = idBook;
 	}
 	public Integer getId() {
 		return id;
@@ -87,6 +92,15 @@ public class Message {
 	}
 	public void setSpoiler(Integer spoiler) {
 		this.spoiler = spoiler;
+	}
+	
+	
+	
+	public Book getIdBook() {
+		return idBook;
+	}
+	public void setIdBook(Book idBook) {
+		this.idBook = idBook;
 	}
 	@Override
 	public int hashCode() {

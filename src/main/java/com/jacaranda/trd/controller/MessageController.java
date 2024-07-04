@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jacaranda.trd.dto.MessageDto;
@@ -36,9 +37,9 @@ public class MessageController {
 	@Operation(
 		      summary = "Get a message list order by date\n",
 		      description = "Allows users to view a list of messages that are stored in the database")
-	@GetMapping("/getMessages")
-	public ResponseEntity<?> getMessages(){
-		List<MessageDto> messages = messageService.getMessages();
+	@GetMapping("/getMessagesByBook")
+	public ResponseEntity<?> getMessages(@RequestParam("idBook") Integer idBook){
+		List<MessageDto> messages = messageService.getMessages(idBook);
         Collections.sort(messages, (m1, m2) -> m1.getDate().compareTo(m2.getDate()));
 		return ResponseEntity.ok(messages);
 	}

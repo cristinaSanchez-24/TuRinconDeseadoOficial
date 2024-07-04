@@ -7,15 +7,25 @@ public class UserRegisterDto {
 	private String username;
 	private String password;
 	private String email;
+	private String image;
 	public UserRegisterDto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public UserRegisterDto(String username, String password, String email) {
+	public UserRegisterDto(String username, String password, String email, String image) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.email = email;
+		this.image = image;
+	}
+	
+	
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
 	}
 	public String getUsername() {
 		return username;

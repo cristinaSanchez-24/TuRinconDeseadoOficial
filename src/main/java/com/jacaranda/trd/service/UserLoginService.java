@@ -58,14 +58,13 @@ public class UserLoginService implements UserDetailsService{
 				String encoderPassword = passwordEncoder.encode(user.getPassword());
 				userLoginAdd.setPassword(encoderPassword);
 
+				if(user.getImage()!=null && !user.getImage().isEmpty()) {
+					userLoginAdd.setImage(user.getImage());
+				}else {
+					userLoginAdd.setImage(null);
+				}
 				UserLogin userAux = userLoginRepository.save(userLoginAdd);
 				if(userAux!=null) {
-					/*
-					if(user.getImage()!=null && !user.getImage().isEmpty()) {
-						userAdd.setImage(user.getImage());
-					}else {
-						userAdd.setImage(null);
-					}*/
 					return ConvertsDto.userToUserDto(userAux);
 				}else {
 					throw new BadRequest("Error to saving a user");
@@ -91,6 +90,20 @@ public class UserLoginService implements UserDetailsService{
 		if(user!=null) {
 			userDto = ConvertsDto.userToUserDto(user);	
 			lista.add(userDto);
+		}
+		return lista;
+	}
+	
+	/**
+	 * Metodo para poder comprobar si hay un uaurio con el username introducido 
+	 * @param name
+	 * @return el usuario econtrado o null si no lo encuentra
+	 */
+	public List<UserDto> existEmail(String email) {
+		List<UserLogin> userLoginList = userLoginRepository.findByEmail(email);
+		List<UserDto> lista = new ArrayList<UserDto>();
+		if(userLoginList.size()>0) {
+			lista = ConvertsDto.getListUserDto(userLoginList);
 		}
 		return lista;
 	}

@@ -23,6 +23,7 @@ public class UserLogin implements UserDetails{
 	private String rol;
 	private String password;
 	private String email;
+	private String image;
 	@OneToMany(mappedBy = "username")
 	private List<Message> listMessage;
 	
@@ -42,6 +43,16 @@ public class UserLogin implements UserDetails{
 
 
 	
+
+	public String getImage() {
+		return image;
+	}
+
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
 
 	public String getEmail() {
 		return email;

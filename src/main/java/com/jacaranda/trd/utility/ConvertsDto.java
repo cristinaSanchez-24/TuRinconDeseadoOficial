@@ -19,9 +19,19 @@ public class ConvertsDto {
 		return new UserDto(user.getUsername(), user.getPassword(), user.getRol(), user.getEmail());
 	}
 	
+	public static List<UserDto> getListUserDto(List<UserLogin> users ){
+		List<UserDto> userDto = new ArrayList<UserDto>();
+		
+		for(UserLogin m: users) {
+			userDto.add(userToUserDto(m));
+		}
+		
+		return userDto;
+	}
+	
 	
 	public static MessageDto messageToMessageDto(Message message) {
-		return new MessageDto(message.getId(), message.getUsername().getUsername(), message.getContent(), message.getDate(), message.getStatus());
+		return new MessageDto(message.getId(), message.getUsername().getUsername(), message.getContent(), message.getDate(), message.getStatus(), message.getIdBook().getId());
 	}
 	
 	public static List<MessageDto> getListMessagesDto(List<Message> messages ){

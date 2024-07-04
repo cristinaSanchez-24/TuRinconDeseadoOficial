@@ -14,20 +14,29 @@ public class MessageDto {
 	@JsonFormat(shape= Shape.STRING, pattern ="dd/MM/yyyy HH:mm")
 	private Date date;
 	private String status;
+	private Integer idBook;
 	
 	public MessageDto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public MessageDto(Integer idMessage, String user, String content, Date date, String status) {
+	public MessageDto(Integer idMessage, String user, String content, Date date, String status, Integer idBook) {
 		super();
 		this.idMessage = idMessage;
 		this.user = user;
 		this.content = content;
 		this.date = date;
 		this.status = status;
+		this.idBook = idBook;
 	}
 	
+	
+	public Integer getIdBook() {
+		return idBook;
+	}
+	public void setIdBook(Integer idBook) {
+		this.idBook = idBook;
+	}
 	public String getStatus() {
 		return status;
 	}
