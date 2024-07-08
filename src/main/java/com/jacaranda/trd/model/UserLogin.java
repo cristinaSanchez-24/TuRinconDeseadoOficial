@@ -26,6 +26,8 @@ public class UserLogin implements UserDetails{
 	private String image;
 	@OneToMany(mappedBy = "username")
 	private List<Message> listMessage;
+	@OneToMany(mappedBy = "user")
+	private List<Like> listLike;
 	
 	public UserLogin() {
 		super();

@@ -30,6 +30,8 @@ public class MessageServices {
 	private UserLoginRepository userRepository;
 	@Autowired
 	private BookRepository bookRepository;
+	@Autowired
+	private LikeService likeService;
 	
 	
 	/**
@@ -39,7 +41,11 @@ public class MessageServices {
 	public List<MessageDto> getMessages(Integer id){
 		Book book = bookRepository.findById(id).orElse(null);
 		if(book!=null) {
-			return ConvertsDto.getListMessagesDto(messageRepository.findByIdBook(book));			
+			List<MessageDto> message = ConvertsDto.getListMessagesDto(messageRepository.findByIdBook(book));
+			for(MessageDto m: message) {
+				m.setTotalLike(likeService.totalLike(m.getIdMessage()).size());
+			}
+			return message;		
 		}else {
 			throw new NotFound("Book Not founs");
 		}

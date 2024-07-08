@@ -33,8 +33,8 @@ public class WebSocketController {
 	@MessageMapping("/chat/{roomId}")
 	@SendTo("/topic/{roomId}")
 	public ChatMessageDto chat(@DestinationVariable String roomId, MessageSendDto message) {
-		messageService.addMessage(message);
-		return new ChatMessageDto(message.getContent(), message.getUser());
+		MessageDto m = messageService.addMessage(message);
+		return new ChatMessageDto(m.getIdMessage(), message.getUser(),message.getContent(), m.getStatus(), message.getSpoiler(), message.getAnonimous());
 	}
 	
 }

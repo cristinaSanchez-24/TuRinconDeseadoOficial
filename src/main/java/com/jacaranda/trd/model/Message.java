@@ -1,6 +1,7 @@
 package com.jacaranda.trd.model;
 
 import java.sql.Date;
+import java.util.List;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -12,6 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -33,7 +35,8 @@ public class Message {
 	@ManyToOne
 	@JoinColumn(name = "idBook")
 	private Book idBook;
-	
+	@OneToMany(mappedBy = "message")
+	private List<Like> listLikeMessage;
 	
 	public Message() {
 		super();

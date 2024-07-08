@@ -15,12 +15,15 @@ public class MessageDto {
 	private Date date;
 	private String status;
 	private Integer idBook;
+	private Integer spoiler;
+	private Integer anonimous;
+	private Integer totalLike;
 	
 	public MessageDto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public MessageDto(Integer idMessage, String user, String content, Date date, String status, Integer idBook) {
+	public MessageDto(Integer idMessage, String user, String content, Date date, String status, Integer idBook, Integer spoiler, Integer anonimous) {
 		super();
 		this.idMessage = idMessage;
 		this.user = user;
@@ -28,9 +31,30 @@ public class MessageDto {
 		this.date = date;
 		this.status = status;
 		this.idBook = idBook;
+		this.spoiler = spoiler;
+		this.anonimous = anonimous;
 	}
 	
 	
+	
+	public Integer getTotalLike() {
+		return totalLike;
+	}
+	public void setTotalLike(Integer totalLike) {
+		this.totalLike = totalLike;
+	}
+	public Integer getSpoiler() {
+		return spoiler;
+	}
+	public void setSpoiler(Integer spoiler) {
+		this.spoiler = spoiler;
+	}
+	public Integer getAnonimous() {
+		return anonimous;
+	}
+	public void setAnonimous(Integer anonimous) {
+		this.anonimous = anonimous;
+	}
 	public Integer getIdBook() {
 		return idBook;
 	}
