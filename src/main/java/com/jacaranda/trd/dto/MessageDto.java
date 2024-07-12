@@ -18,6 +18,7 @@ public class MessageDto {
 	private Integer spoiler;
 	private Integer anonimous;
 	private Integer totalLike;
+	private String image;
 	
 	public MessageDto() {
 		super();
@@ -36,7 +37,12 @@ public class MessageDto {
 	}
 	
 	
-	
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
+	}
 	public Integer getTotalLike() {
 		return totalLike;
 	}

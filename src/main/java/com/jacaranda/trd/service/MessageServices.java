@@ -44,6 +44,12 @@ public class MessageServices {
 			List<MessageDto> message = ConvertsDto.getListMessagesDto(messageRepository.findByIdBook(book));
 			for(MessageDto m: message) {
 				m.setTotalLike(likeService.totalLike(m.getIdMessage()).size());
+				UserLogin user = userRepository.findById(m.getUser()).orElse(null);
+				if(user!=null) {
+					if(user.getImage()!=null) {
+						m.setImage(user.getImage());
+					}
+				}
 			}
 			return message;		
 		}else {
