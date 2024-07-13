@@ -21,7 +21,7 @@ public class TuRinconDeseadoOficialApplication {
 		@Override
 		public void addCorsMappings(CorsRegistry registry) {
 			registry.addMapping("/**")
-				.allowedOrigins("http://localhost:4200/", "http://render.com", "https://gamer-place.vercel.app")
+				.allowedOrigins("http://localhost:4200/", "http://render.com", "https://tu-rincon-deseado-oficial.vercel.app/")
 				.allowedMethods("GET", "POST", "PUT", "DELETE", "HEAD")
 				.allowCredentials(true);
 		}
